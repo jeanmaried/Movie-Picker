@@ -3,8 +3,11 @@ ul {
 }
 
 body {
-  background: #29b6f6;
-  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #081c24;
+  background: #01d277;
 }
 
 select {
@@ -41,4 +44,19 @@ img {
 
 .no_image {
   height: 375px;
+}
+
+.tmdb {
+  position: fixed;
+  bottom: 30px;
+  left: 10px;
+  height: 50px;
+}
+
+.attribution {
+  font-size: 12px;
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+  width: 100%;
 }

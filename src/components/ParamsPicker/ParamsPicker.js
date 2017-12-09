@@ -19,7 +19,8 @@ class ParamsPicker extends Component {
       year: '',
       selectedMovie: 0,
       randomPage: 0,
-      yourMovie: undefined
+      yourMovie: undefined,
+      initialMovie: {}
     };
   }
 
@@ -33,6 +34,23 @@ class ParamsPicker extends Component {
         let genres = response.data.genres;
         this.setState({
           availableGenres: genres
+        });
+        console.log(this.state.initialMovie);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  componentWillMount() {
+    axios
+      .get(
+        'https://api.themoviedb.org/3/movie/346364?api_key=754007c908587eeaa8a0798e4a168614&language=en-US'
+      )
+      .then(response => {
+        let initialMovie = response.data;
+        this.setState({
+          initialMovie: initialMovie
         });
       })
       .catch(function(error) {
@@ -205,10 +223,26 @@ class ParamsPicker extends Component {
                 <p>{this.state.yourMovie.overview}</p>
               </div>
             ) : (
-              <div />
+              <div key={this.state.initialMovie.id}>
+                <h2>{this.state.initialMovie.title}</h2>
+                <div className="no_image">
+                  <img
+                    src={`http://image.tmdb.org/t/p/w500/${
+                      this.state.initialMovie.poster_path
+                    }`}
+                    alt="No poster available"
+                  />
+                </div>
+                <p>{this.state.initialMovie.overview}</p>
+              </div>
             )}
           </div>
         </div>
+        <img className="tmdb" src={require('../../tmdb.png')} />
+        <p className="attribution">
+          This product uses the TMDb API but is not endorsed or certified by
+          TMDb.
+        </p>
       </div>
     );
   }
