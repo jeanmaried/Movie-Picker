@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
+
+const style = {
+  width: 150,
+  height: 50
+};
 
 class ParamsPicker extends Component {
   constructor(props) {
@@ -112,70 +118,97 @@ class ParamsPicker extends Component {
     }
 
     return (
-      <div className="text-align">
-        <h1>Pick Random Movie Parameters</h1>
-        <div className="flex justify-around">
-          <div>
-            <h3>Genre</h3>
-            <select id="genre_dropdown" onChange={this.movieParams}>
-              <option value="" disabled selected>
-                Select genre...
-              </option>
-              {this.state.availableGenres.map(genre => {
-                return (
-                  <option key={genre.id} value={genre.id}>
-                    {genre.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+      <div>
+        <h1 className="text-align">Random Movie Picker</h1>
+        <div className="text-align flex justify-center">
+          <div className="select_holder">
+            <div>
+              <div className="flex justify-between">
+                <div>
+                  <h3>Genre</h3>
+                  <select id="genre_dropdown" onChange={this.movieParams}>
+                    <option value="" disabled selected>
+                      Select genre...
+                    </option>
+                    {this.state.availableGenres.map(genre => {
+                      return (
+                        <option key={genre.id} value={genre.id}>
+                          {genre.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
 
-          <div>
-            <h3>Average Ratings</h3>
-            <select id="rating_dropdown" onChange={this.movieParams}>
-              <option value="" disabled selected>
-                Select rating...
-              </option>
-              {[9, 8, 7, 6, 5, 4, 3, 2, 1].map(num => {
-                return (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+                <div>
+                  <h3>Ratings</h3>
+                  <select id="rating_dropdown" onChange={this.movieParams}>
+                    <option value="" disabled selected>
+                      Select rating...
+                    </option>
+                    {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map(num => {
+                      return (
+                        <option key={num} value={num}>
+                          {num}+
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
 
-          <div>
-            <h3>Release Year</h3>
-            <select id="year_dropdown" onChange={this.movieParams}>
-              <option value="" disabled selected>
-                Select year...
-              </option>
-              {yearArray.map(year => {
-                return (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                );
-              })}
-            </select>
+                <div>
+                  <h3>Year</h3>
+                  <select id="year_dropdown" onChange={this.movieParams}>
+                    <option value="" disabled selected>
+                      Select year...
+                    </option>
+                    {yearArray.map(year => {
+                      return (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="find_movie">
+              {this.state.genre || this.state.year || this.state.ratings ? (
+                <RaisedButton
+                  label="Find movie"
+                  style={style}
+                  onClick={this.submitParams}
+                />
+              ) : (
+                <RaisedButton
+                  label="Find movie"
+                  style={style}
+                  onClick={this.submitParams}
+                  disabled={true}
+                />
+              )}
+            </div>
+          </div>
+          <div className="movie_holder">
+            {this.state.yourMovie ? (
+              <div key={this.state.yourMovie.id}>
+                <h2>{this.state.yourMovie.title}</h2>
+                <div className="no_image">
+                  <img
+                    src={`http://image.tmdb.org/t/p/w500/${
+                      this.state.yourMovie.poster_path
+                    }`}
+                    alt="No poster available"
+                  />
+                </div>
+                <p>{this.state.yourMovie.overview}</p>
+              </div>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
-        <input onClick={this.submitParams} type="submit" value="Submit" />
-
-        {this.state.yourMovie ? (
-          <div key={this.state.yourMovie.id}>
-            <h3>{this.state.yourMovie.title}</h3>
-            <img
-              src={`http://image.tmdb.org/t/p/w500/${
-                this.state.yourMovie.poster_path
-              }`}
-              alt="movie_image"
-            />
-          </div>
-        ) : null}
       </div>
     );
   }
