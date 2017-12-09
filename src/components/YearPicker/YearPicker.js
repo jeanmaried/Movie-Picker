@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getYear } from '../../redux/modules/state';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class YearPicker extends Component {
-  movieParams = e => {
-    this.props.dispatch(getYear(e.target.value));
+  constructor(props) {
+    super(props);
+    this.state = { value: 'Select year...' };
+  }
+
+  movieParams = (event, index, value) => {
+    this.setState({
+      value: value
+    });
+    this.props.dispatch(getYear(value));
   };
 
   render() {
@@ -15,20 +25,17 @@ class YearPicker extends Component {
     }
 
     return (
-      <div>
-        <h3>Year</h3>
-        <select id="year_dropdown" onChange={this.movieParams}>
-          <option value="" disabled selected>
-            Select year...
-          </option>
+      <div className="flex">
+        <h4>Year</h4>
+        <DropDownMenu
+          value={this.state.value}
+          id="year_dropdown"
+          onChange={this.movieParams}
+        >
           {yearArray.map(year => {
-            return (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            );
+            return <MenuItem key={year} value={year} primaryText={year} />;
           })}
-        </select>
+        </DropDownMenu>
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 class YourMovie extends Component {
   render() {
+    console.log(this.props.yourMovie);
     return (
       <div key={this.props.yourMovie.id}>
         <h2>{this.props.yourMovie.title}</h2>
@@ -14,7 +15,17 @@ class YourMovie extends Component {
             alt="No poster available"
           />
         </div>
-        <p>{this.props.yourMovie.overview}</p>
+        <p>
+          Rating:{' '}
+          {this.props.yourMovie.vote_average === 0
+            ? 'N/A'
+            : this.props.yourMovie.vote_average}
+        </p>
+        <p>
+          {this.props.yourMovie.overview
+            ? this.props.yourMovie.overview
+            : 'No overview found'}
+        </p>
       </div>
     );
   }

@@ -87,7 +87,6 @@ export default (
     case GET_INITIAL_MOVIE:
       return { ...state, initialMovie: action.payload };
     default:
-      console.log(state);
       return state;
   }
 };

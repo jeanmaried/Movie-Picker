@@ -29,7 +29,17 @@ class InitialMovie extends Component {
             alt="No poster available"
           />
         </div>
-        <p>{this.props.initialMovie.overview}</p>
+        <p>
+          Rating:{' '}
+          {this.props.initialMovie.vote_average === 0
+            ? 'N/A'
+            : this.props.initialMovie.vote_average}
+        </p>
+        <p>
+          {this.props.initialMovie.overview
+            ? this.props.initialMovie.overview
+            : 'No overview found'}
+        </p>
       </div>
     );
   }

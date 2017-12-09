@@ -3,7 +3,15 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getGenre, getAvailableGenres } from '../../redux/modules/state';
 
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 class GenrePicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 'Select genre...' };
+  }
+
   componentDidMount() {
     axios
       .get(
@@ -18,27 +26,32 @@ class GenrePicker extends Component {
       });
   }
 
-  movieParams = e => {
-    this.props.dispatch(getGenre(e.target.value));
+  movieParams = (event, index, value) => {
+    this.setState({
+      value: value
+    });
+    this.props.dispatch(getGenre(value));
   };
 
   render() {
-    console.log(this.props.chosenGenre);
     return (
-      <div>
-        <h3>Genre</h3>
-        <select id="genre_dropdown" onChange={this.movieParams}>
-          <option value="" disabled selected>
-            Select genre...
-          </option>
+      <div className="flex">
+        <h4>Genre</h4>
+        <DropDownMenu
+          value={this.state.value}
+          id="genre_dropdown"
+          onChange={this.movieParams}
+        >
           {this.props.availableGenres.map(genre => {
             return (
-              <option key={genre.id} value={genre.id}>
-                {genre.name}
-              </option>
+              <MenuItem
+                key={genre.id}
+                value={genre.id}
+                primaryText={genre.name}
+              />
             );
           })}
-        </select>
+        </DropDownMenu>
       </div>
     );
   }
