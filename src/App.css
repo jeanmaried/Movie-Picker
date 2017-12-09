@@ -1,3 +1,44 @@
 ul {
   list-style: none;
 }
+
+body {
+  background: #29b6f6;
+  color: white;
+}
+
+select {
+  width: 150px;
+  height: 50px;
+  font-size: 16px;
+}
+
+input {
+  width: 150px;
+  height: 50px;
+  font-size: 16px;
+}
+
+.select_holder {
+  width: 45%;
+  min-width: 500px;
+  padding: 20px;
+}
+
+.movie_holder {
+  width: 45%;
+  min-width: 500px;
+  padding: 20px;
+}
+
+.find_movie {
+  margin: 150px;
+}
+
+img {
+  height: 375px;
+}
+
+.no_image {
+  height: 375px;
+}
