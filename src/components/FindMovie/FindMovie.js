@@ -28,7 +28,7 @@ class FindMovie extends Component {
         if (totalPages <= 1) {
           randomPage = 1;
         } else {
-          randomPage = Math.floor(Math.random() * 1000);
+          randomPage = Math.floor(Math.random() * totalPages + 1);
         }
         this.props.dispatch(getRandomPage(randomPage));
 
@@ -66,8 +66,8 @@ class FindMovie extends Component {
   render() {
     return (
       <div className="find_movie">
-        {this.props.chosenGenre ||
-        this.props.chosenYear ||
+        {this.props.chosenGenre &&
+        this.props.chosenYear &&
         this.props.chosenRating ? (
           <RaisedButton
             label="Find movie"
