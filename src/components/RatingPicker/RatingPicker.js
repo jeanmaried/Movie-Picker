@@ -21,7 +21,7 @@ class RatingPicker extends Component {
     let ratingsArray = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
     return (
       <div className="flex">
-        <h4>Minimum Ratings</h4>
+        <h4>Ratings</h4>
         <DropDownMenu
           value={this.state.value}
           id="rating_dropdown"
