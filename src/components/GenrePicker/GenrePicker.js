@@ -58,8 +58,7 @@ class GenrePicker extends Component {
 }
 
 const mapStateToProps = ({ state }) => ({
-  availableGenres: state.availableGenres,
-  chosenGenre: state.chosenGenre
+  availableGenres: state.availableGenres
 });
 
 export default connect(mapStateToProps)(GenrePicker);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 import GenrePicker from '../GenrePicker';
 import RatingPicker from '../RatingPicker';
 import YearPicker from '../YearPicker';
@@ -45,12 +44,6 @@ class ParamsPicker extends Component {
 }
 
 const mapStateToProps = ({ state }) => ({
-  chosenGenre: state.chosenGenre,
-  chosenRating: state.chosenRating,
-  chosenYear: state.chosenYear,
-  randomMovies: state.randomMovies,
-  selectedMovie: state.selectedMovie,
-  randomPage: state.randomPage,
   yourMovie: state.yourMovie,
   initialMovie: state.initialMovie
 });

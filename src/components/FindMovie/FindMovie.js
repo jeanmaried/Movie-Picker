@@ -18,17 +18,17 @@ class FindMovie extends Component {
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=754007c908587eeaa8a0798e4a168614&include_adult=false&include_video=false&page=1&primary_release_year=${
           this.props.chosenYear
-        }&vote_average.gte=${this.props.chosenRating}&with_genres=${
-          this.props.chosenGenre
-        }`
+        }&vote_average.gte=${this.props.chosenRating}&vote_average.lte=${this
+          .props.chosenRating + 1}&with_genres=${this.props.chosenGenre}`
       )
       .then(response => {
         let totalPages = response.data.total_pages;
+        console.log(totalPages);
         let randomPage;
         if (totalPages <= 1) {
           randomPage = 1;
         } else {
-          randomPage = Math.floor(Math.random() * totalPages + 1);
+          randomPage = Math.floor(Math.random() * 1000);
         }
         this.props.dispatch(getRandomPage(randomPage));
 
@@ -36,7 +36,9 @@ class FindMovie extends Component {
           .get(
             `https://api.themoviedb.org/3/discover/movie?api_key=754007c908587eeaa8a0798e4a168614&include_adult=false&include_video=false&page=1&primary_release_year=${
               this.props.chosenYear
-            }&vote_average.gte=${this.props.chosenRating}&with_genres=${
+            }&vote_average.gte=${
+              this.props.chosenRating
+            }&vote_average.lte=${this.props.chosenRating + 1}&with_genres=${
               this.props.chosenGenre
             }&page=${this.props.randomPage}`
           )
@@ -60,6 +62,7 @@ class FindMovie extends Component {
     let yourMovie = randomMovies[moviePick];
     this.props.dispatch(getYourMovie(yourMovie));
   };
+
   render() {
     return (
       <div className="find_movie">
@@ -89,10 +92,8 @@ const mapStateToProps = ({ state }) => ({
   chosenRating: state.chosenRating,
   chosenYear: state.chosenYear,
   randomMovies: state.randomMovies,
-  selectedMovie: state.selectedMovie,
   randomPage: state.randomPage,
-  yourMovie: state.yourMovie,
-  initialMovie: state.initialMovie
+  yourMovie: state.yourMovie
 });
 
 export default connect(mapStateToProps)(FindMovie);
